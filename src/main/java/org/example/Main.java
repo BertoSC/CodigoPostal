@@ -25,7 +25,6 @@ public class Main {
         System.out.println("Introduce el Código Postal que quieres consultar");
 
         Scanner sc = new Scanner(System.in);
-        //int idConcello = 15078; // ID de ejemplo para Santiago de Compostela
         int idCP = sc.nextInt();
         String json = null;
         //Boolean existe = comprobarIdConcello(idConcello);

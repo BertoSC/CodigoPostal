@@ -24,8 +24,6 @@ public class CodigoPostalDeserializer implements JsonDeserializer <CodigoPostal>
         }
 
         CodigoPostal cp = new CodigoPostal(codigoPostal, pais, abreviatura, lugares);
-
-
         return cp;
     }
 }

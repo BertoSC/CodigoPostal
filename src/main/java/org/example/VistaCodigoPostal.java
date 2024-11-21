@@ -1,7 +1,11 @@
 package org.example;
 
+
 import javax.swing.*;
 import java.util.List;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class VistaCodigoPostal extends JFrame implements IVistaCodigoPostal{
     private ICodigoPostalController codigoPostalController;
@@ -29,24 +33,12 @@ public class VistaCodigoPostal extends JFrame implements IVistaCodigoPostal{
 
     @Override
     public void setController(ICodigoPostalController controller) {
-
+       this.codigoPostalController= controller;
     }
 
     @Override
     public void mostrar() {
 
-        /*import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-public class BuscadorCodigosPostales {
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> crearVista());
-    }
-
-    private static void crearVista() {
         // Crear el marco principal
         JFrame marco = new JFrame("Buscador de Códigos Postales");
         marco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -105,17 +97,21 @@ public class BuscadorCodigosPostales {
                 areaResultados.setText("Buscando lugares para el código postal " + codigoPostal +
                         " en el país con abreviatura " + abreviatura + "...\n");
 
+                String res = codigoPostalController.getLugares(campoCodigoPostal.getText(), campoAbreviatura.getText(), false);
+
                 // Simulación de datos de prueba
-                areaResultados.append("Resultados:\n- Lugar 1: Ciudad Solar\n- Lugar 2: Villa Lumínica\n");
+                areaResultados.setText(res);
             }
         });
 
-        // Mostrar la ventana
         marco.setVisible(true);
+
     }
-}*/
 
-
-
+    public static void main(String[] args) {
+        VistaCodigoPostal vm = new VistaCodigoPostal();
+        CodigoPostalController cc = new CodigoPostalController();
+        vm.setController(cc);
+        vm.mostrar();
     }
 }

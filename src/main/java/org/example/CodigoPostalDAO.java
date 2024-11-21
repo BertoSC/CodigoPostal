@@ -16,7 +16,7 @@ public class CodigoPostalDAO implements ICodigoPostalDAO {
     Gson gson;
 
     public CodigoPostalDAO() {
-        this.pais=null;  // se crea en null? o se hace un constructor que recoja el pais?
+        this.pais="es";  // se crea en null? o se hace un constructor que recoja el pais?
         configurarGsonBuilder();
     }
 

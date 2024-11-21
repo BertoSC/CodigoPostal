@@ -1,10 +1,12 @@
 package org.example;
 
 import javax.swing.*;
+import java.util.List;
 
 public class VistaCodigoPostal extends JFrame implements IVistaCodigoPostal{
     private ICodigoPostalController codigoPostalController;
-
+    private List<Lugar> listaLugares;
+    private CodigoPostal codigoPostal;
     @Override
     public void mostrarError(String mensaje) {
 

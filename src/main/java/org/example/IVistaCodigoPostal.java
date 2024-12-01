@@ -5,12 +5,12 @@ public interface IVistaCodigoPostal {
     /**
      * Muestra un mensaje de error en la vista.
      */
-    void mostrarError(String mensaje);
+    void mostrarError();
 
     /**
      * Muestra añade un lugar a la lista de lugares de la vista.
      */
-    public void addLugar(String lugar);
+    public void addLugar(String lugar, String abr);
 
     /**
      * Borra la lista de lugares de la vista.

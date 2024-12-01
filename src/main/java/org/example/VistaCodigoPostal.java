@@ -9,26 +9,49 @@ import java.awt.event.ActionListener;
 
 public class VistaCodigoPostal extends JFrame implements IVistaCodigoPostal{
     private ICodigoPostalController codigoPostalController;
-    private List<Lugar> listaLugares;
-    private CodigoPostal codigoPostal;
+    JFrame marco = new JFrame("Buscador de Códigos Postales");
+    JTextField campoCodigoPostal = new JTextField();
+    JTextField campoAbreviatura = new JTextField();
+    JTextArea areaResultados = new JTextArea();
+
     @Override
-    public void mostrarError(String mensaje) {
+    public void mostrarError() {
+        areaResultados.setText("ERROR: Lugares no encontrados");
 
     }
 
     @Override
-    public void addLugar(String lugar) {
+    public void addLugar(String codigoPostal, String abreviatura) {
+
+        if (codigoPostal.isEmpty() || abreviatura.isEmpty()) {
+            areaResultados.setText("Por favor, ingrese el código postal y la abreviatura del país.");
+            return;
+        }
+
+        // Aquí puedes conectar con tu controlador para obtener los datos
+        areaResultados.setText("Buscando lugares para el código postal " + codigoPostal +
+                " en el país con abreviatura " + abreviatura + "...\n");
+
+        String res = codigoPostalController.getLugares(campoCodigoPostal.getText(), campoAbreviatura.getText(), false);
+
+        if (res==null){
+            mostrarError();
+        } else {
+            // Simulación de datos de prueba
+            areaResultados.setText(res);
+        }
 
     }
 
     @Override
     public void deleteLugares() {
+        areaResultados.setText("");
 
     }
 
     @Override
     public void setLugares(String lugares) {
-
+            // no tiene sentido
     }
 
     @Override
@@ -40,7 +63,7 @@ public class VistaCodigoPostal extends JFrame implements IVistaCodigoPostal{
     public void mostrar() {
 
         // Crear el marco principal
-        JFrame marco = new JFrame("Buscador de Códigos Postales");
+
         marco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         marco.setSize(600, 400);
         marco.setLayout(new BorderLayout());
@@ -49,20 +72,22 @@ public class VistaCodigoPostal extends JFrame implements IVistaCodigoPostal{
         JPanel panelEntrada = new JPanel(new GridLayout(3, 2, 10, 10));
 
         JLabel etiquetaCodigoPostal = new JLabel("Código Postal:");
-        JTextField campoCodigoPostal = new JTextField();
+
         JLabel etiquetaAbreviatura = new JLabel("Abreviatura del País:");
-        JTextField campoAbreviatura = new JTextField();
+
         JButton botonBuscar = new JButton("Buscar");
+        JButton botonEliminar= new JButton("Eliminar");
 
         panelEntrada.add(etiquetaCodigoPostal);
         panelEntrada.add(campoCodigoPostal);
         panelEntrada.add(etiquetaAbreviatura);
         panelEntrada.add(campoAbreviatura);
-        panelEntrada.add(new JLabel()); // Espacio vacío
+
         panelEntrada.add(botonBuscar);
+        panelEntrada.add(botonEliminar);
 
         // Panel central para desplegar información
-        JTextArea areaResultados = new JTextArea();
+
         areaResultados.setEditable(false);
         JScrollPane scrollResultados = new JScrollPane(areaResultados);
 
@@ -87,20 +112,14 @@ public class VistaCodigoPostal extends JFrame implements IVistaCodigoPostal{
             public void actionPerformed(ActionEvent e) {
                 String codigoPostal = campoCodigoPostal.getText().trim();
                 String abreviatura = campoAbreviatura.getText().trim();
+                addLugar(codigoPostal, abreviatura);
+            }
+        });
 
-                if (codigoPostal.isEmpty() || abreviatura.isEmpty()) {
-                    areaResultados.setText("Por favor, ingrese el código postal y la abreviatura del país.");
-                    return;
-                }
-
-                // Aquí puedes conectar con tu controlador para obtener los datos
-                areaResultados.setText("Buscando lugares para el código postal " + codigoPostal +
-                        " en el país con abreviatura " + abreviatura + "...\n");
-
-                String res = codigoPostalController.getLugares(campoCodigoPostal.getText(), campoAbreviatura.getText(), false);
-
-                // Simulación de datos de prueba
-                areaResultados.setText(res);
+        botonEliminar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deleteLugares();
             }
         });
 

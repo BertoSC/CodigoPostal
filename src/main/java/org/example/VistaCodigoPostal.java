@@ -1,8 +1,5 @@
 package org.example;
-
-
 import javax.swing.*;
-import java.util.List;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,16 +25,11 @@ public class VistaCodigoPostal extends JFrame implements IVistaCodigoPostal{
             return;
         }
 
-        // Aquí puedes conectar con tu controlador para obtener los datos
-        areaResultados.setText("Buscando lugares para el código postal " + codigoPostal +
-                " en el país con abreviatura " + abreviatura + "...\n");
-
         String res = codigoPostalController.getLugares(campoCodigoPostal.getText(), campoAbreviatura.getText(), false);
 
         if (res==null){
             mostrarError();
         } else {
-            // Simulación de datos de prueba
             areaResultados.setText(res);
         }
 
@@ -62,8 +54,6 @@ public class VistaCodigoPostal extends JFrame implements IVistaCodigoPostal{
     @Override
     public void mostrar() {
 
-        // Crear el marco principal
-
         marco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         marco.setSize(600, 400);
         marco.setLayout(new BorderLayout());
@@ -86,12 +76,10 @@ public class VistaCodigoPostal extends JFrame implements IVistaCodigoPostal{
         panelEntrada.add(botonBuscar);
         panelEntrada.add(botonEliminar);
 
-        // Panel central para desplegar información
-
         areaResultados.setEditable(false);
         JScrollPane scrollResultados = new JScrollPane(areaResultados);
 
-        // Panel inferior con la lista de abreviaturas de países
+
         JPanel panelAbreviaturas = new JPanel(new BorderLayout());
         JLabel etiquetaAbreviaturas = new JLabel("Lista de Abreviaturas de Países:");
         JTextArea areaAbreviaturas = new JTextArea("US - Estados Unidos\nMX - México\nFR - Francia\nES - España\n...");
@@ -101,12 +89,12 @@ public class VistaCodigoPostal extends JFrame implements IVistaCodigoPostal{
         panelAbreviaturas.add(etiquetaAbreviaturas, BorderLayout.NORTH);
         panelAbreviaturas.add(scrollAbreviaturas, BorderLayout.CENTER);
 
-        // Añadir componentes al marco
+
         marco.add(panelEntrada, BorderLayout.NORTH);
         marco.add(scrollResultados, BorderLayout.CENTER);
         marco.add(panelAbreviaturas, BorderLayout.SOUTH);
 
-        // Acción del botón Buscar
+
         botonBuscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

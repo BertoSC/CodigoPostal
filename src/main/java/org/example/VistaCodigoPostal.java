@@ -58,7 +58,6 @@ public class VistaCodigoPostal extends JFrame implements IVistaCodigoPostal{
         marco.setSize(600, 400);
         marco.setLayout(new BorderLayout());
 
-        // Panel superior para entrada de datos
         JPanel panelEntrada = new JPanel(new GridLayout(3, 2, 10, 10));
 
         JLabel etiquetaCodigoPostal = new JLabel("Código Postal:");
